@@ -29,8 +29,8 @@ try {
       const lecturePageFileNames = fs.readdirSync(`${forExtractionDir}/${lectureFolderName}`);
       for (const lecturePageFileName of lecturePageFileNames) {
         if (lecturePageFileName.includes('Screenshot')) {
-          console.log(`Converting page ${pageNumber} of ${lectureFolderName}...`);
           const lecturePageDir = `${forExtractionDir}/${lectureFolderName}/${lecturePageFileName}`;
+          console.log(`Converting page ${pageNumber} of ${lectureFolderName}: ${lecturePageDir}...`);
 
           const { data: { text } } = await worker.recognize(lecturePageDir);
 
