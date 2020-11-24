@@ -1,6 +1,7 @@
 # slides-converter
 
 #### Convert lecture slide PNG images with text in them to PDF with the text embedded to enable searching and convenient browsing.
+#### It's not yet complete nor clean, I've done it rushing just to do the job.
 
 ## Base Directory Structure
 
