@@ -4,8 +4,7 @@
   "description": "Image slides to PDF slides with text converter.",
   "main": "src/convert.js",
   "scripts": {
-    "start": "node src/convert.js",
-    "lint": "eslint src/"
+    "start": "node src/convert.js"
   },
   "keywords": [
     "convert",
