@@ -4,7 +4,8 @@
   "description": "Image slides to PDF slides with text converter.",
   "main": "src/convert.js",
   "scripts": {
-    "start": "node src/convert.js"
+    "start": "node src/convert.js",
+    "optimize": "node src/optimize.js"
   },
   "keywords": [
     "convert",
@@ -16,6 +17,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "pdf-lib": "^1.12.0",
+    "shelljs": "^0.8.4",
     "tesseract.js": "^2.1.4"
   }
 }

@@ -46,8 +46,9 @@
 
 ## Usage
 
-* You must have [node.js](https://nodejs.org/en/) installed.
+#### - Convert
 
+* You must have [node.js](https://nodejs.org/en/) installed.
 * Install dependencies:
     ```shell script
     npm i
@@ -55,4 +56,11 @@
 * To start after editing the `.env` file:
     ```shell script
     npm start
+    ```
+#### Optimize
+
+* You must have [Ghostscript](https://www.ghostscript.com/download/gsdnld.html) installed.
+* To optimize the converted PDFs:
+    ```shell script
+    npm run optimize
     ```
