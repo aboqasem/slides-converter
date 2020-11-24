@@ -28,7 +28,7 @@ try {
 
       const lecturePageFileNames = fs.readdirSync(`${forExtractionDir}/${lectureFolderName}`);
       for (const lecturePageFileName of lecturePageFileNames) {
-        if (lecturePageFileName.includes('Screenshot')) {
+        if (lecturePageFileName.includes(process.env.IMAGE_NAME_CONTAINS)) {
           const lecturePageDir = `${forExtractionDir}/${lectureFolderName}/${lecturePageFileName}`;
           console.log(`Converting page ${pageNumber} of ${lectureFolderName}: ${lecturePageDir}...`);
 
