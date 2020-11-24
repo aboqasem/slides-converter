@@ -13,14 +13,6 @@ const baseDir = process.env.BASE_DIR;
 const forExtractionDir = `${baseDir}/Lectures for extraction`;
 const lecturesDir = `${baseDir}/Lectures`;
 
-// part of the image to include
-const rectangle = {
-  top: 41,
-  left: 0,
-  width: 1731,
-  height: 1150,
-};
-
 try {
   const lectureFolderNames = fs.readdirSync(forExtractionDir).filter((value) => value.includes('Lec'));
 
@@ -40,7 +32,7 @@ try {
           console.log(`Converting page ${pageNumber} of ${lectureFolderName}...`);
           const lecturePageDir = `${forExtractionDir}/${lectureFolderName}/${lecturePageFileName}`;
 
-          const { data: { text } } = await worker.recognize(lecturePageDir, { rectangle });
+          const { data: { text } } = await worker.recognize(lecturePageDir);
 
           const pdfPage = pdfDocument.addPage(
             [parseInt(process.env.PAGE_WIDTH), parseInt(process.env.PAGE_HEIGHT)]);
