@@ -37,17 +37,31 @@ try {
           const lecturePageDir = `${forExtractionDir}/${lectureFolderName}/${lecturePageFileName}`;
           console.log(`Converting page ${pageNumber} of ${lectureFolderName}: ${lecturePageDir}...`);
 
-          let { data: { text } } = await worker.recognize(lecturePageDir);
+          let { data: { text: recognizedText } } = await worker.recognize(lecturePageDir);
 
           // to filter unaccepted characters
           const pdfFont = await pdfDocument.embedFont(StandardFonts.TimesRoman);
           const acceptedCharacterCodes = pdfFont.getCharacterSet();
           // filter unaccepted characters
-          for (let i = 0; i < text.length; ++i) {
-            if (!acceptedCharacterCodes.includes(text.charCodeAt(i))) {
-              text = text.replaceCharAt(i, ' ');
+          for (let i = 0; i < recognizedText.length; ++i) {
+            if (!acceptedCharacterCodes.includes(recognizedText.charCodeAt(i))) {
+              recognizedText = recognizedText.replaceCharAt(i, ' ');
             }
           }
+
+          let line = '';
+          const shortLinesOfRecognizedText = [];
+          recognizedText.split(/\s+/).forEach((value, index, array) => {
+            line += value + ' ';
+            if (line.length > 125 && line.length < 140) {
+              shortLinesOfRecognizedText.push(line.trimEnd());
+              line = '';
+            } else if (index === array.length - 1) {
+              shortLinesOfRecognizedText.push(line.trimEnd());
+            }
+          });
+
+          const drawableText = shortLinesOfRecognizedText.join('\n');
 
           const pdfPage = pdfDocument.addPage(
             [parseInt(process.env.PAGE_WIDTH), parseInt(process.env.PAGE_HEIGHT)]);
@@ -61,9 +75,9 @@ try {
             height: pdfPage.getSize().height,
           });
 
-          pdfPage.drawText(text, {
-            x: 28,
-            y: pdfPage.getSize().height - 70,
+          pdfPage.drawText(drawableText, {
+            x: 0,
+            y: pdfPage.getSize().height - 10,
             size: 12,
             opacity: 0,
           });
