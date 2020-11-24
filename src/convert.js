@@ -1,10 +1,15 @@
 const fs = require('fs');
 const { createWorker } = require('tesseract.js');
-const { PDFDocument } = require('pdf-lib');
+const { PDFDocument, StandardFonts } = require('pdf-lib');
 
 require('dotenv').config();
 
 const worker = createWorker();
+
+// to filter unaccepted characters
+String.prototype.replaceCharAt = function (index, replacement) {
+  return this.substring(0, index) + replacement + this.substring(index + 1);
+};
 
 // absolute path
 const baseDir = process.env.BASE_DIR;
@@ -32,7 +37,17 @@ try {
           const lecturePageDir = `${forExtractionDir}/${lectureFolderName}/${lecturePageFileName}`;
           console.log(`Converting page ${pageNumber} of ${lectureFolderName}: ${lecturePageDir}...`);
 
-          const { data: { text } } = await worker.recognize(lecturePageDir);
+          let { data: { text } } = await worker.recognize(lecturePageDir);
+
+          // to filter unaccepted characters
+          const pdfFont = await pdfDocument.embedFont(StandardFonts.TimesRoman);
+          const acceptedCharacterCodes = pdfFont.getCharacterSet();
+          // filter unaccepted characters
+          for (let i = 0; i < text.length; ++i) {
+            if (!acceptedCharacterCodes.includes(text.charCodeAt(i))) {
+              text = text.replaceCharAt(i, ' ');
+            }
+          }
 
           const pdfPage = pdfDocument.addPage(
             [parseInt(process.env.PAGE_WIDTH), parseInt(process.env.PAGE_HEIGHT)]);
