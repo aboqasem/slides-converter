@@ -44,6 +44,9 @@
 
 
 ## Usage
+
+* You must have [node.js](https://nodejs.org/en/) installed.
+
 * Install dependencies:
     ```shell script
     npm i
