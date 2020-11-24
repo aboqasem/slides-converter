@@ -30,26 +30,20 @@ try {
     await worker.initialize('eng');
 
     for (const lectureFolderName of lectureFolderNames) {
-      // eslint-disable-next-line no-console
       console.log(`Converting ${lectureFolderName}...`);
-      // eslint-disable-next-line no-await-in-loop
       const pdfDocument = await PDFDocument.create();
       let pageNumber = 1;
 
       const lecturePageFileNames = fs.readdirSync(`${forExtractionDir}/${lectureFolderName}`);
-      // eslint-disable-next-line no-restricted-syntax
       for (const lecturePageFileName of lecturePageFileNames) {
         if (lecturePageFileName.includes('Screenshot')) {
-          // eslint-disable-next-line no-console
           console.log(`Converting page ${pageNumber} of ${lectureFolderName}...`);
           const lecturePageDir = `${forExtractionDir}/${lectureFolderName}/${lecturePageFileName}`;
 
-          // eslint-disable-next-line no-await-in-loop
           const { data: { text } } = await worker.recognize(lecturePageDir, { rectangle });
 
           const pdfPage = pdfDocument.addPage([841, 595]);
 
-          // eslint-disable-next-line no-await-in-loop
           const pdfLecturePage = await pdfDocument.embedPng(fs.readFileSync(lecturePageDir));
 
           pdfPage.drawImage(pdfLecturePage, {
@@ -65,7 +59,6 @@ try {
             size: 12,
             opacity: 0,
           });
-          // eslint-disable-next-line no-plusplus,no-console
           console.log(`Done page ${pageNumber++} of ${lectureFolderName}.`);
         }
       }
