@@ -12,7 +12,7 @@
     ```shell script
     touch .env
     ```
-2. Place the absolute path as `BASE_DIR` in `.env`, check `.env.example` for example.
+2. Place the absolute path as `BASE_DIR` in `.env`, copy and customize the variables, check `.env.example` for example.
 3. Create a directory inside it with the name of `Lectures for extraction`:
     ```shell script
     cd "Base Directory"

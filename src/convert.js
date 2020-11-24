@@ -42,7 +42,8 @@ try {
 
           const { data: { text } } = await worker.recognize(lecturePageDir, { rectangle });
 
-          const pdfPage = pdfDocument.addPage([841, 595]);
+          const pdfPage = pdfDocument.addPage(
+            [parseInt(process.env.PAGE_WIDTH), parseInt(process.env.PAGE_HEIGHT)]);
 
           const pdfLecturePage = await pdfDocument.embedPng(fs.readFileSync(lecturePageDir));
 
