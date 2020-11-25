@@ -24,7 +24,7 @@
     cd "Lectures for extraction"
     mkdir Lec01 Lec02
     ```
-5. Place the **.png** images inside the directories as needed, each image must contain `Screenshot` in its name, example: `Screenshot 1.png`, `Screenshot 2.png`, etc.
+5. Place the **.png** images inside the directories as needed, each image file name must contain the value of `IMAGE_NAME_CONTAINS` from `.env`, example: `Screenshot 1.png`, `Screenshot 2.png`, etc.
 6. Create a directory `Lectures` in the base directory:
     ```shell script
     cd ../
